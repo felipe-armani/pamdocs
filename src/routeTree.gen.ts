@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ModulosUsuariosRouteImport } from './routes/modulos.usuarios'
+import { Route as ModulosProjetosRouteImport } from './routes/modulos.projetos'
+import { Route as ModulosPainelRouteImport } from './routes/modulos.painel'
+import { Route as ModulosIntegracoesRouteImport } from './routes/modulos.integracoes'
+import { Route as ModulosGruposRouteImport } from './routes/modulos.grupos'
+import { Route as ModulosDominiosRouteImport } from './routes/modulos.dominios'
+import { Route as ModulosAcessoRouteImport } from './routes/modulos.acesso'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ModulosUsuariosRoute = ModulosUsuariosRouteImport.update({
+  id: '/modulos/usuarios',
+  path: '/modulos/usuarios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulosProjetosRoute = ModulosProjetosRouteImport.update({
+  id: '/modulos/projetos',
+  path: '/modulos/projetos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulosPainelRoute = ModulosPainelRouteImport.update({
+  id: '/modulos/painel',
+  path: '/modulos/painel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulosIntegracoesRoute = ModulosIntegracoesRouteImport.update({
+  id: '/modulos/integracoes',
+  path: '/modulos/integracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulosGruposRoute = ModulosGruposRouteImport.update({
+  id: '/modulos/grupos',
+  path: '/modulos/grupos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulosDominiosRoute = ModulosDominiosRouteImport.update({
+  id: '/modulos/dominios',
+  path: '/modulos/dominios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulosAcessoRoute = ModulosAcessoRouteImport.update({
+  id: '/modulos/acesso',
+  path: '/modulos/acesso',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/modulos/acesso': typeof ModulosAcessoRoute
+  '/modulos/dominios': typeof ModulosDominiosRoute
+  '/modulos/grupos': typeof ModulosGruposRoute
+  '/modulos/integracoes': typeof ModulosIntegracoesRoute
+  '/modulos/painel': typeof ModulosPainelRoute
+  '/modulos/projetos': typeof ModulosProjetosRoute
+  '/modulos/usuarios': typeof ModulosUsuariosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/modulos/acesso': typeof ModulosAcessoRoute
+  '/modulos/dominios': typeof ModulosDominiosRoute
+  '/modulos/grupos': typeof ModulosGruposRoute
+  '/modulos/integracoes': typeof ModulosIntegracoesRoute
+  '/modulos/painel': typeof ModulosPainelRoute
+  '/modulos/projetos': typeof ModulosProjetosRoute
+  '/modulos/usuarios': typeof ModulosUsuariosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/modulos/acesso': typeof ModulosAcessoRoute
+  '/modulos/dominios': typeof ModulosDominiosRoute
+  '/modulos/grupos': typeof ModulosGruposRoute
+  '/modulos/integracoes': typeof ModulosIntegracoesRoute
+  '/modulos/painel': typeof ModulosPainelRoute
+  '/modulos/projetos': typeof ModulosProjetosRoute
+  '/modulos/usuarios': typeof ModulosUsuariosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/modulos/acesso'
+    | '/modulos/dominios'
+    | '/modulos/grupos'
+    | '/modulos/integracoes'
+    | '/modulos/painel'
+    | '/modulos/projetos'
+    | '/modulos/usuarios'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/modulos/acesso'
+    | '/modulos/dominios'
+    | '/modulos/grupos'
+    | '/modulos/integracoes'
+    | '/modulos/painel'
+    | '/modulos/projetos'
+    | '/modulos/usuarios'
+  id:
+    | '__root__'
+    | '/'
+    | '/modulos/acesso'
+    | '/modulos/dominios'
+    | '/modulos/grupos'
+    | '/modulos/integracoes'
+    | '/modulos/painel'
+    | '/modulos/projetos'
+    | '/modulos/usuarios'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ModulosAcessoRoute: typeof ModulosAcessoRoute
+  ModulosDominiosRoute: typeof ModulosDominiosRoute
+  ModulosGruposRoute: typeof ModulosGruposRoute
+  ModulosIntegracoesRoute: typeof ModulosIntegracoesRoute
+  ModulosPainelRoute: typeof ModulosPainelRoute
+  ModulosProjetosRoute: typeof ModulosProjetosRoute
+  ModulosUsuariosRoute: typeof ModulosUsuariosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/modulos/usuarios': {
+      id: '/modulos/usuarios'
+      path: '/modulos/usuarios'
+      fullPath: '/modulos/usuarios'
+      preLoaderRoute: typeof ModulosUsuariosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modulos/projetos': {
+      id: '/modulos/projetos'
+      path: '/modulos/projetos'
+      fullPath: '/modulos/projetos'
+      preLoaderRoute: typeof ModulosProjetosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modulos/painel': {
+      id: '/modulos/painel'
+      path: '/modulos/painel'
+      fullPath: '/modulos/painel'
+      preLoaderRoute: typeof ModulosPainelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modulos/integracoes': {
+      id: '/modulos/integracoes'
+      path: '/modulos/integracoes'
+      fullPath: '/modulos/integracoes'
+      preLoaderRoute: typeof ModulosIntegracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modulos/grupos': {
+      id: '/modulos/grupos'
+      path: '/modulos/grupos'
+      fullPath: '/modulos/grupos'
+      preLoaderRoute: typeof ModulosGruposRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modulos/dominios': {
+      id: '/modulos/dominios'
+      path: '/modulos/dominios'
+      fullPath: '/modulos/dominios'
+      preLoaderRoute: typeof ModulosDominiosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modulos/acesso': {
+      id: '/modulos/acesso'
+      path: '/modulos/acesso'
+      fullPath: '/modulos/acesso'
+      preLoaderRoute: typeof ModulosAcessoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ModulosAcessoRoute: ModulosAcessoRoute,
+  ModulosDominiosRoute: ModulosDominiosRoute,
+  ModulosGruposRoute: ModulosGruposRoute,
+  ModulosIntegracoesRoute: ModulosIntegracoesRoute,
+  ModulosPainelRoute: ModulosPainelRoute,
+  ModulosProjetosRoute: ModulosProjetosRoute,
+  ModulosUsuariosRoute: ModulosUsuariosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
