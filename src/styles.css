@@ -4,76 +4,167 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: "Epilogue";
+  src: url("/fonts/Epilogue-VariableFont_wght.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Epilogue";
+  src: url("/fonts/Epilogue-Italic-VariableFont_wght.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme inline {
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: "Epilogue", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Epilogue", ui-sans-serif, system-ui, sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
-  --color-rose: var(--rose);
-  --color-paper: var(--paper);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
   --color-ink: var(--ink);
+  --color-violet: var(--violet);
+  --color-stone: var(--stone);
+  --color-blush: var(--blush);
 }
 
 :root {
-  --background: oklch(0.97 0.012 80);          /* warm cream */
-  --paper: oklch(0.985 0.008 80);
-  --foreground: oklch(0.22 0.06 280);          /* #272541 */
-  --ink: oklch(0.22 0.06 280);
-  --card: oklch(0.995 0.005 80);
-  --card-foreground: oklch(0.22 0.06 280);
-  --primary: oklch(0.22 0.06 280);             /* deep navy */
-  --primary-foreground: oklch(0.98 0.008 80);
-  --accent: oklch(0.72 0.085 295);             /* lilac #9F9CCD */
-  --accent-foreground: oklch(0.22 0.06 280);
-  --rose: oklch(0.85 0.06 25);                 /* #F7BEBC */
-  --muted: oklch(0.92 0.012 80);
-  --muted-foreground: oklch(0.45 0.03 280);
-  --border: oklch(0.88 0.015 80);              /* #DDD7D7 */
   --radius: 0.25rem;
+
+  --ink: oklch(0.27 0.05 286);
+  --violet: oklch(0.69 0.08 295);
+  --stone: oklch(0.89 0.005 20);
+  --blush: oklch(0.85 0.06 20);
+
+  --background: oklch(0.985 0.003 20);
+  --foreground: var(--ink);
+
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+
+  --primary: var(--ink);
+  --primary-foreground: oklch(0.985 0.003 20);
+
+  --secondary: var(--stone);
+  --secondary-foreground: var(--ink);
+
+  --muted: oklch(0.94 0.005 20);
+  --muted-foreground: oklch(0.45 0.02 286);
+
+  --accent: var(--violet);
+  --accent-foreground: oklch(1 0 0);
+
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.985 0.003 20);
+
+  --border: oklch(0.88 0.008 286);
+  --input: oklch(0.88 0.008 286);
+  --ring: var(--violet);
 }
 
 .dark {
-  --background: oklch(0.18 0.04 280);
-  --paper: oklch(0.22 0.05 280);
-  --foreground: oklch(0.95 0.01 80);
-  --ink: oklch(0.95 0.01 80);
-  --card: oklch(0.22 0.05 280);
-  --card-foreground: oklch(0.95 0.01 80);
-  --primary: oklch(0.72 0.085 295);
-  --primary-foreground: oklch(0.18 0.04 280);
-  --accent: oklch(0.72 0.085 295);
-  --accent-foreground: oklch(0.18 0.04 280);
-  --muted: oklch(0.28 0.04 280);
-  --muted-foreground: oklch(0.72 0.03 280);
-  --border: oklch(0.32 0.04 280);
+  --background: var(--ink);
+  --foreground: oklch(0.97 0.005 286);
+  --card: oklch(0.32 0.04 286);
+  --card-foreground: oklch(0.97 0.005 286);
+  --popover: oklch(0.32 0.04 286);
+  --popover-foreground: oklch(0.97 0.005 286);
+  --primary: var(--violet);
+  --primary-foreground: var(--ink);
+  --secondary: oklch(0.35 0.04 286);
+  --secondary-foreground: oklch(0.97 0.005 286);
+  --muted: oklch(0.32 0.04 286);
+  --muted-foreground: oklch(0.75 0.02 286);
+  --accent: var(--violet);
+  --accent-foreground: var(--ink);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--violet);
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  body {
-    background: var(--background);
-    color: var(--foreground);
+  * {
+    border-color: var(--color-border);
+  }
+
+  html, body {
     font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
-}
 
-/* blueprint grid texture */
-.blueprint {
-  background-image:
-    linear-gradient(to right, color-mix(in oklab, var(--ink) 6%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in oklab, var(--ink) 6%, transparent) 1px, transparent 1px),
-    linear-gradient(135deg, transparent 49%, color-mix(in oklab, var(--ink) 4%, transparent) 49%, color-mix(in oklab, var(--ink) 4%, transparent) 51%, transparent 51%);
-  background-size: 48px 48px, 48px 48px, 96px 96px;
+  h1, h2, h3, h4, .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    font-weight: 500;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .pattern-bg {
+    position: relative;
+    isolation: isolate;
+  }
+  .pattern-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/pattern-lines-light.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.22;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .dark .pattern-bg::before {
+    background-image: url("/pattern-lines.svg");
+    opacity: 0.45;
+  }
 }
