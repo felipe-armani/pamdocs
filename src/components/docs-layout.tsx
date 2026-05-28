@@ -12,6 +12,9 @@ const nav = [
   { to: "/modulos/grupos", label: "Grupos & pessoas", code: "05" },
   { to: "/modulos/dominios", label: "Domínios & hubs", code: "06" },
   { to: "/modulos/integracoes", label: "Integrações", code: "07" },
+  { to: "/modulos/scheduler", label: "Scheduler", code: "08" },
+  { to: "/modulos/logs", label: "Logs de auditoria", code: "09" },
+  { to: "/modulos/status", label: "Status do sistema", code: "10" },
 ];
 
 export function DocsLayout({ children }: { children?: ReactNode }) {
