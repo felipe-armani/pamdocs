@@ -11,8 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ModulosUsuariosRouteImport } from './routes/modulos.usuarios'
+import { Route as ModulosStatusRouteImport } from './routes/modulos.status'
+import { Route as ModulosSchedulerRouteImport } from './routes/modulos.scheduler'
 import { Route as ModulosProjetosRouteImport } from './routes/modulos.projetos'
 import { Route as ModulosPainelRouteImport } from './routes/modulos.painel'
+import { Route as ModulosLogsRouteImport } from './routes/modulos.logs'
 import { Route as ModulosIntegracoesRouteImport } from './routes/modulos.integracoes'
 import { Route as ModulosGruposRouteImport } from './routes/modulos.grupos'
 import { Route as ModulosDominiosRouteImport } from './routes/modulos.dominios'
@@ -28,6 +31,16 @@ const ModulosUsuariosRoute = ModulosUsuariosRouteImport.update({
   path: '/modulos/usuarios',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ModulosStatusRoute = ModulosStatusRouteImport.update({
+  id: '/modulos/status',
+  path: '/modulos/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulosSchedulerRoute = ModulosSchedulerRouteImport.update({
+  id: '/modulos/scheduler',
+  path: '/modulos/scheduler',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ModulosProjetosRoute = ModulosProjetosRouteImport.update({
   id: '/modulos/projetos',
   path: '/modulos/projetos',
@@ -36,6 +49,11 @@ const ModulosProjetosRoute = ModulosProjetosRouteImport.update({
 const ModulosPainelRoute = ModulosPainelRouteImport.update({
   id: '/modulos/painel',
   path: '/modulos/painel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulosLogsRoute = ModulosLogsRouteImport.update({
+  id: '/modulos/logs',
+  path: '/modulos/logs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ModulosIntegracoesRoute = ModulosIntegracoesRouteImport.update({
@@ -65,8 +83,11 @@ export interface FileRoutesByFullPath {
   '/modulos/dominios': typeof ModulosDominiosRoute
   '/modulos/grupos': typeof ModulosGruposRoute
   '/modulos/integracoes': typeof ModulosIntegracoesRoute
+  '/modulos/logs': typeof ModulosLogsRoute
   '/modulos/painel': typeof ModulosPainelRoute
   '/modulos/projetos': typeof ModulosProjetosRoute
+  '/modulos/scheduler': typeof ModulosSchedulerRoute
+  '/modulos/status': typeof ModulosStatusRoute
   '/modulos/usuarios': typeof ModulosUsuariosRoute
 }
 export interface FileRoutesByTo {
@@ -75,8 +96,11 @@ export interface FileRoutesByTo {
   '/modulos/dominios': typeof ModulosDominiosRoute
   '/modulos/grupos': typeof ModulosGruposRoute
   '/modulos/integracoes': typeof ModulosIntegracoesRoute
+  '/modulos/logs': typeof ModulosLogsRoute
   '/modulos/painel': typeof ModulosPainelRoute
   '/modulos/projetos': typeof ModulosProjetosRoute
+  '/modulos/scheduler': typeof ModulosSchedulerRoute
+  '/modulos/status': typeof ModulosStatusRoute
   '/modulos/usuarios': typeof ModulosUsuariosRoute
 }
 export interface FileRoutesById {
@@ -86,8 +110,11 @@ export interface FileRoutesById {
   '/modulos/dominios': typeof ModulosDominiosRoute
   '/modulos/grupos': typeof ModulosGruposRoute
   '/modulos/integracoes': typeof ModulosIntegracoesRoute
+  '/modulos/logs': typeof ModulosLogsRoute
   '/modulos/painel': typeof ModulosPainelRoute
   '/modulos/projetos': typeof ModulosProjetosRoute
+  '/modulos/scheduler': typeof ModulosSchedulerRoute
+  '/modulos/status': typeof ModulosStatusRoute
   '/modulos/usuarios': typeof ModulosUsuariosRoute
 }
 export interface FileRouteTypes {
@@ -98,8 +125,11 @@ export interface FileRouteTypes {
     | '/modulos/dominios'
     | '/modulos/grupos'
     | '/modulos/integracoes'
+    | '/modulos/logs'
     | '/modulos/painel'
     | '/modulos/projetos'
+    | '/modulos/scheduler'
+    | '/modulos/status'
     | '/modulos/usuarios'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -108,8 +138,11 @@ export interface FileRouteTypes {
     | '/modulos/dominios'
     | '/modulos/grupos'
     | '/modulos/integracoes'
+    | '/modulos/logs'
     | '/modulos/painel'
     | '/modulos/projetos'
+    | '/modulos/scheduler'
+    | '/modulos/status'
     | '/modulos/usuarios'
   id:
     | '__root__'
@@ -118,8 +151,11 @@ export interface FileRouteTypes {
     | '/modulos/dominios'
     | '/modulos/grupos'
     | '/modulos/integracoes'
+    | '/modulos/logs'
     | '/modulos/painel'
     | '/modulos/projetos'
+    | '/modulos/scheduler'
+    | '/modulos/status'
     | '/modulos/usuarios'
   fileRoutesById: FileRoutesById
 }
@@ -129,8 +165,11 @@ export interface RootRouteChildren {
   ModulosDominiosRoute: typeof ModulosDominiosRoute
   ModulosGruposRoute: typeof ModulosGruposRoute
   ModulosIntegracoesRoute: typeof ModulosIntegracoesRoute
+  ModulosLogsRoute: typeof ModulosLogsRoute
   ModulosPainelRoute: typeof ModulosPainelRoute
   ModulosProjetosRoute: typeof ModulosProjetosRoute
+  ModulosSchedulerRoute: typeof ModulosSchedulerRoute
+  ModulosStatusRoute: typeof ModulosStatusRoute
   ModulosUsuariosRoute: typeof ModulosUsuariosRoute
 }
 
@@ -150,6 +189,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModulosUsuariosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/modulos/status': {
+      id: '/modulos/status'
+      path: '/modulos/status'
+      fullPath: '/modulos/status'
+      preLoaderRoute: typeof ModulosStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modulos/scheduler': {
+      id: '/modulos/scheduler'
+      path: '/modulos/scheduler'
+      fullPath: '/modulos/scheduler'
+      preLoaderRoute: typeof ModulosSchedulerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/modulos/projetos': {
       id: '/modulos/projetos'
       path: '/modulos/projetos'
@@ -162,6 +215,13 @@ declare module '@tanstack/react-router' {
       path: '/modulos/painel'
       fullPath: '/modulos/painel'
       preLoaderRoute: typeof ModulosPainelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modulos/logs': {
+      id: '/modulos/logs'
+      path: '/modulos/logs'
+      fullPath: '/modulos/logs'
+      preLoaderRoute: typeof ModulosLogsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/modulos/integracoes': {
@@ -201,8 +261,11 @@ const rootRouteChildren: RootRouteChildren = {
   ModulosDominiosRoute: ModulosDominiosRoute,
   ModulosGruposRoute: ModulosGruposRoute,
   ModulosIntegracoesRoute: ModulosIntegracoesRoute,
+  ModulosLogsRoute: ModulosLogsRoute,
   ModulosPainelRoute: ModulosPainelRoute,
   ModulosProjetosRoute: ModulosProjetosRoute,
+  ModulosSchedulerRoute: ModulosSchedulerRoute,
+  ModulosStatusRoute: ModulosStatusRoute,
   ModulosUsuariosRoute: ModulosUsuariosRoute,
 }
 export const routeTree = rootRouteImport
