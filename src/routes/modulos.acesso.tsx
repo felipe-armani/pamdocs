@@ -8,7 +8,7 @@ export const Route = createFileRoute("/modulos/acesso")({
   head: () => ({
     meta: [
       { title: "Acesso ao ambiente — Manual PAM" },
-      { name: "description", content: "Autenticação SSO via PROFILE, credenciais e validação de produto no PAM." },
+      { name: "description", content: "Autenticação corporativa e acesso ao sistema PAM." },
     ],
   }),
   component: () => (
@@ -16,58 +16,56 @@ export const Route = createFileRoute("/modulos/acesso")({
       <Wizard
         module="01"
         title="Acesso ao ambiente"
-        intro="Procedimento de autenticação Single Sign-On via PROFILE para acesso ao sistema PAM (Product Access Management)."
+        intro="Procedimento de autenticação para acesso ao sistema PAM (Product Access Management). Utilize seu e-mail e senha corporativos."
         steps={[
           {
             title: "Tela de login",
-            summary: "O PAM utiliza SSO integrado ao PROFILE. A tela de login valida o produto antes de permitir autenticação.",
-            note: "Credenciais: admin@example.com / Admin@123 (ambiente de desenvolvimento).",
+            summary: "Acesse a URL do sistema PAM com seu navegador. Utilize credenciais corporativas fornecidas pelo time de TI.",
             body: (
               <>
-                <Figure src={loginImg} alt="Tela de login do PAM" caption="Fig. 01 — Tela de autenticação PAM integrada ao PROFILE" />
+                <Figure src={loginImg} alt="Tela de login do PAM" caption="Fig. 01 — Tela de autenticação do PAM" />
                 <StepList
                   items={[
-                    { label: "Acesse http://localhost:8005 no navegador." },
-                    { label: "O sistema verifica se o produto PAM está ativo no PROFILE", detail: "Via DUE_PRODUCT_KEY configurada no .env" },
-                    { label: "Informe e-mail e senha corporativos", detail: "Autenticação delegada ao PROFILE via POST /api/auth/login" },
+                    { label: "Abra a URL do PAM no navegador corporativo." },
+                    { label: "Informe seu e-mail corporativo." },
+                    { label: "Digite sua senha corporativa." },
+                    { label: "Clique em Entrar para acessar o sistema." },
                   ]}
                 />
               </>
             ),
           },
           {
-            title: "Fluxo SSO",
-            summary: "A autenticação é processada pelo PROFILE, que retorna tokens JWT em cookies HttpOnly.",
+            title: "Verificação de acesso",
+            summary: "O sistema valida automaticamente se seu usuário possui autorização para acessar o produto.",
             body: (
               <FieldGrid
                 fields={[
-                  { k: "Provedor SSO", v: "PROFILE (porta 8006/8007)" },
-                  { k: "Token", v: "JWT · HttpOnly cookie" },
-                  { k: "Validação", v: "profile_jwt_secret_key" },
-                  { k: "Produto", v: "Verificado via DUE_PRODUCT_KEY" },
-                  { k: "Sessão", v: "30 minutos (access token)" },
-                  { k: "Refresh", v: "7 dias (refresh token)" },
+                  { k: "Autenticação", v: "Single Sign-On corporativo" },
+                  { k: "Validação", v: "Permissões verificadas automaticamente" },
+                  { k: "Sessão", v: "Expição automática por inatividade" },
+                  { k: "Segurança", v: "Credenciais criptografadas" },
                 ]}
               />
             ),
           },
           {
-            title: "Validação de produto",
-            summary: "Antes do login, o PAM verifica se o produto está ativo no PROFILE. Se inativo, exibe tela de bloqueio.",
+            title: "Problemas de acesso",
+            summary: "Caso não consiga acessar, verifique as situações abaixo antes de acionar o suporte.",
             body: (
               <StepList
                 items={[
-                  { label: "PAM consulta PROFILE: verify_product()", detail: "Usa a chave DUE_PRODUCT_KEY" },
-                  { label: "Se produto ativo → exibe formulário de login" },
-                  { label: "Se produto inativo → redireciona para /product-not-active" },
-                  { label: "Superadmin bypassa verificação de produto" },
+                  { label: "Confira se seu e-mail e senha estão corretos." },
+                  { label: "Verifique se sua conta está ativa (não bloqueada ou expirada)." },
+                  { label: "Certifique-se de que seu perfil possui acesso ao produto PAM." },
+                  { label: "Caso o problema persista, acione o suporte de TI." },
                 ]}
               />
             ),
           },
           {
             title: "Redefinição de senha",
-            summary: "Fluxo de recuperação disponível em /forgot-password com token enviado por email.",
+            summary: "Utilize a opção 'Esqueci minha senha' na tela de login para recuperar o acesso.",
             body: (
               <Callout title="Próximo passo">
                 Após autenticação, avance para o módulo <strong>02 — Painel & navegação</strong>.

@@ -16,20 +16,20 @@ export const Route = createFileRoute("/modulos/logs")({
       <Wizard
         module="09"
         title="Logs de auditoria"
-        intro="Rastreamento completo de ações no PAM. Cada evento registra timestamp, nível, módulo e mensagem. API: GET /api/logs."
+        intro="Registro de todas as ações realizadas no sistema. Permite rastrear operações, investigar incidentes e gerar evidências de auditoria."
         steps={[
           {
             title: "Listagem de logs",
-            summary: "Tabela com Timestamp, Nível (INFO/WARNING/ERROR), Módulo e Mensagem.",
+            summary: "Tabela com Data/Hora, Nível, Módulo de origem e Mensagem descritiva de cada evento.",
             body: (
               <>
-                <Figure src={logsImg} alt="Logs de auditoria" caption="Fig. 11 — Logs do sistema" />
+                <Figure src={logsImg} alt="Logs de auditoria" caption="Fig. 11 — Registro de eventos do sistema" />
                 <FieldGrid
                   fields={[
-                    { k: "Timestamp", v: "Data/hora do evento" },
-                    { k: "Nível", v: "INFO · WARNING · ERROR" },
-                    { k: "Módulo", v: "Componente de origem (auth, api, worker)" },
-                    { k: "Mensagem", v: "Descrição textual do evento" },
+                    { k: "Data/Hora", v: "Momento exato do evento" },
+                    { k: "Nível", v: "Informativo · Alerta · Erro" },
+                    { k: "Módulo", v: "Componente do sistema que gerou o evento" },
+                    { k: "Mensagem", v: "Descrição textual do ocorrido" },
                   ]}
                 />
               </>
@@ -37,25 +37,25 @@ export const Route = createFileRoute("/modulos/logs")({
           },
           {
             title: "Filtros e busca",
-            summary: "Combine busca textual com filtros por nível, data e módulo para investigar incidentes.",
+            summary: "Combine busca por texto com filtros de nível, data e módulo para localizar eventos específicos.",
             body: (
               <StepList
                 items={[
-                  { label: "Digite termos no campo de busca textual." },
-                  { label: "Filtre por Nível: INFO, WARNING ou ERROR." },
-                  { label: "Filtre por período (data inicial e final)." },
-                  { label: "Use paginação para navegar em grandes volumes." },
+                  { label: "Digite termos no campo de busca para localizar eventos." },
+                  { label: "Filtre por Nível: Informativo, Alerta ou Erro." },
+                  { label: "Filtre por período usando as datas inicial e final." },
+                  { label: "Use a navegação de páginas para grandes volumes de registros." },
                 ]}
               />
             ),
           },
           {
-            title: "Boas práticas",
-            summary: "Logs são essenciais para auditoria e debugging. Consulte antes de abrir chamados.",
+            title: "Uso dos logs",
+            summary: "Os logs são a principal ferramenta para auditoria e diagnóstico de problemas.",
             body: (
-              <Callout title="Política de retenção">
-                Logs são armazenados conforme política de retenção configurada. Para
-                investigações, sempre anote o timestamp e o session_id antes de acionar o suporte.
+              <Callout title="Recomendação">
+                Antes de abrir um chamado de suporte, consulte os logs para obter informações
+                sobre o ocorrido. Anote a data/hora e a mensagem do evento para agilizar o atendimento.
               </Callout>
             ),
           },

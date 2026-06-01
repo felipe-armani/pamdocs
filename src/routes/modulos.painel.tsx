@@ -56,8 +56,8 @@ export const Route = createFileRoute("/modulos/painel")({
             summary: "Dropdown para filtrar dados por domínio. Superadmin vê todos os domínios; usuários veem apenas o seu.",
             body: (
               <Callout title="Funcionalidade">
-                Os cards de KPI e as tabelas são atualizados automaticamente ao trocar o domínio
-                no seletor. O endpoint <code>GET /api/redis/status</code> alimenta o status das filas.
+                Os cards do dashboard e as tabelas são atualizados automaticamente ao trocar o domínio
+                no seletor. O painel também exibe o status de processamento das filas do sistema.
               </Callout>
             ),
           },

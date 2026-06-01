@@ -16,20 +16,20 @@ export const Route = createFileRoute("/modulos/integracoes")({
       <Wizard
         module="07"
         title="Integrações"
-        intro="Configuração de integrações com sistemas externos: ACC Delivery, Microsoft Entra ID, Google Workspace e PROFILE. Acesso restrito a admin+."
+        intro="Configuração de integrações com sistemas externos corporativos. Acesso restrito a administradores."
         steps={[
           {
             title: "Integrações disponíveis",
-            summary: "Cards com toggle de ativação para cada integração. API: GET/POST /api/integrations.",
+            summary: "Cards com toggle de ativação para cada sistema integrado ao PAM.",
             body: (
               <>
                 <Figure src={intImg} alt="Listagem de integrações" caption="Fig. 09 — Integrações configuráveis" />
                 <FieldGrid
                   fields={[
-                    { k: "ACC Client", v: "Integração com ACC Delivery (Autodesk Construction Cloud)" },
-                    { k: "Entra ID", v: "Azure AD / Microsoft Entra ID para provisionamento" },
-                    { k: "Google", v: "Google Workspace para sincronização de usuários" },
-                    { k: "PROFILE", v: "Integração SSO nativa (obrigatória)" },
+                    { k: "ACC", v: "Autodesk Construction Cloud — gestão de projetos e usuários" },
+                    { k: "Entra ID", v: "Microsoft Entra ID — provisionamento de identidades" },
+                    { k: "Google", v: "Google Workspace — sincronização de usuários" },
+                    { k: "Autenticação", v: "Sistema de autenticação corporativa (SSO)" },
                   ]}
                 />
               </>
@@ -37,26 +37,25 @@ export const Route = createFileRoute("/modulos/integracoes")({
           },
           {
             title: "Ativação e configuração",
-            summary: "Cada integração possui toggle liga/desliga e campos específicos de configuração.",
+            summary: "Cada integração possui botão para ativar/desativar e campos específicos de configuração.",
             body: (
               <StepList
                 items={[
                   { label: "Localize o card da integração desejada." },
-                  { label: "Ative o toggle para habilitar." },
-                  { label: "Preencha os campos de configuração (URLs, chaves, secrets)." },
-                  { label: "Salve e verifique o status de conexão." },
+                  { label: "Ative a chave liga/desliga para habilitar." },
+                  { label: "Preencha os campos de configuração conforme orientação do time de TI." },
+                  { label: "Salve e verifique o status da conexão." },
                 ]}
               />
             ),
           },
           {
-            title: "PROFILE Client",
-            summary: "A integração com PROFILE é obrigatória para SSO. Configurada via variáveis de ambiente.",
+            title: "Integração de autenticação",
+            summary: "A integração com o sistema de autenticação corporativa é obrigatória para o funcionamento do SSO.",
             body: (
-              <Callout title="Configuração crítica">
-                <strong>DUE_ACCOUNT_URL:</strong> URL do PROFILE (ex: http://profile_web:8000).{" "}
-                <strong>DUE_PRODUCT_KEY:</strong> Chave do produto PAM no PROFILE.{" "}
-                <strong>profile_jwt_secret_key:</strong> Chave JWT compartilhada para validação de tokens.
+              <Callout title="Importante">
+                A integração de autenticação é configurada pelo time de plataforma e não deve
+                ser alterada sem autorização. Em caso de dúvidas, acione o suporte técnico.
               </Callout>
             ),
           },

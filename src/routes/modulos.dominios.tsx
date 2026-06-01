@@ -17,20 +17,19 @@ export const Route = createFileRoute("/modulos/dominios")({
       <Wizard
         module="06"
         title="Domínios & hubs"
-        intro="Domínios são tenants/organizações sincronizadas a partir do PROFILE. Hubs são centros de distribuição. Acesso restrito a superadmin/admin."
+        intro="Domínios representam as organizações no sistema. Hubs são centros de distribuição de projetos. Acesso restrito a administradores."
         steps={[
           {
             title: "Domínios",
-            summary: "Gerenciamento de domínios — apenas superadmin. Sincronizados do PROFILE via POST /api/domains/sync-from-profile.",
+            summary: "Gerenciamento de domínios — restrito ao perfil Superadmin. Cada domínio isola usuários e projetos.",
             body: (
               <>
-                <Figure src={domImg} alt="Listagem de domínios" caption="Fig. 07 — Domínios (apenas superadmin)" />
+                <Figure src={domImg} alt="Listagem de domínios" caption="Fig. 07 — Domínios" />
                 <FieldGrid
                   fields={[
-                    { k: "Acesso", v: "Apenas superadmin" },
-                    { k: "Origem", v: "Sincronizados do PROFILE" },
-                    { k: "API", v: "GET /api/domains · POST /sync-from-profile" },
-                    { k: "Multi-domínio", v: "Usuário pode pertencer a múltiplos domínios" },
+                    { k: "Acesso", v: "Restrito ao Superadmin" },
+                    { k: "Sincronização", v: "Domínios sincronizados com o sistema de autenticação" },
+                    { k: "Multi-domínio", v: "Usuários podem pertencer a múltiplos domínios" },
                   ]}
                 />
               </>
@@ -38,16 +37,17 @@ export const Route = createFileRoute("/modulos/dominios")({
           },
           {
             title: "Hubs",
-            summary: "Hubs são pontos centrais de distribuição/organização. API: GET/POST /api/hubs.",
+            summary: "Hubs organizam a distribuição de projetos dentro de cada domínio.",
             body: <Figure src={hubsImg} alt="Listagem de hubs" caption="Fig. 08 — Hubs" />,
           },
           {
             title: "Governança",
-            summary: "Domínios são a base do isolamento multi-tenant. Hubs organizam a distribuição interna.",
+            summary: "Domínios garantem isolamento entre organizações. Hubs estruturam a distribuição interna de projetos.",
             body: (
               <Callout title="Política">
-                Apenas superadmin pode gerenciar domínios. Admins de domínio gerenciam hubs
-                dentro do seu próprio domínio. Usuários não têm acesso a estas telas.
+                Apenas o Superadmin pode gerenciar domínios. Administradores de domínio
+                gerenciam hubs dentro da sua própria organização. Usuários comuns não
+                têm acesso a estas telas.
               </Callout>
             ),
           },

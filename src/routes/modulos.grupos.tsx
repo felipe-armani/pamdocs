@@ -17,19 +17,19 @@ export const Route = createFileRoute("/modulos/grupos")({
       <Wizard
         module="05"
         title="Grupos & pessoas"
-        intro="Grupos concentram permissões reutilizáveis. Pessoas são vinculadas a grupos para herdar acessos de forma consistente."
+        intro="Grupos concentram permissões reutilizáveis. Pessoas são vinculadas a grupos para herdar acessos de forma consistente entre projetos."
         steps={[
           {
             title: "Grupos",
-            summary: "Tabela de grupos com Nome, Descrição, Qtd. Pessoas. API: GET/POST /api/groups.",
+            summary: "Tabela de grupos com Nome, Descrição e quantidade de pessoas vinculadas.",
             body: (
               <>
                 <Figure src={gruposImg} alt="Listagem de grupos" caption="Fig. 05 — Grupos de acesso" />
                 <StepList
                   items={[
-                    { label: "Novo Grupo: modal com Nome e Descrição." },
-                    { label: "Ações: Editar, Excluir, Ver Pessoas." },
-                    { label: "Link para /groups/{id}/people gerencia membros." },
+                    { label: "Novo Grupo: preencha Nome e Descrição." },
+                    { label: "Ações disponíveis: Editar, Excluir e Ver Pessoas." },
+                    { label: "Acesse os membros do grupo para gerenciar pessoas vinculadas." },
                   ]}
                 />
               </>
@@ -37,7 +37,7 @@ export const Route = createFileRoute("/modulos/grupos")({
           },
           {
             title: "Pessoas",
-            summary: "Cadastro de pessoas com Nome, Email, Telefone. API: GET/POST /api/people.",
+            summary: "Cadastro de pessoas com Nome, Email e vínculos a grupos e projetos.",
             body: (
               <>
                 <Figure src={pessoasImg} alt="Listagem de pessoas" caption="Fig. 06 — Pessoas cadastradas" />
@@ -53,14 +53,14 @@ export const Route = createFileRoute("/modulos/grupos")({
             ),
           },
           {
-            title: "Project Groups",
-            summary: "Associação entre projetos e grupos. Define quais grupos têm acesso a quais projetos.",
+            title: "Associação Projeto-Grupo",
+            summary: "Defina quais grupos têm acesso a cada projeto. Uma associação vincula um projeto a um grupo.",
             body: (
               <StepList
                 items={[
-                  { label: "Acesse /project-groups para ver associações." },
-                  { label: "API: GET/POST /api/project_groups." },
-                  { label: "Cada associação vincula um Projeto + Grupo." },
+                  { label: "Acesse a tela de Associações de Projetos." },
+                  { label: "Selecione o Projeto e o Grupo desejados." },
+                  { label: "Confirme para criar o vínculo." },
                 ]}
               />
             ),

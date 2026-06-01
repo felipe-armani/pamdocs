@@ -16,20 +16,20 @@ export const Route = createFileRoute("/modulos/scheduler")({
       <Wizard
         module="08"
         title="Scheduler"
-        intro="Configuração de tarefas agendadas (jobs recorrentes) para sincronização, importação e validação de dados. Acesso restrito a admin+."
+        intro="Configuração de tarefas agendadas para execução recorrente de sincronizações e importações. Acesso restrito a administradores."
         steps={[
           {
             title: "Visão geral",
-            summary: "Tabela de agendamentos com Nome, Expressão Cron, Status, Última/Próxima execução. API: GET/POST /api/scheduler.",
+            summary: "Tabela com os agendamentos: Nome, Periodicidade, Status e datas da última e próxima execução.",
             body: (
               <>
-                <Figure src={schedImg} alt="Tela do Scheduler" caption="Fig. 10 — Scheduler de tarefas" />
+                <Figure src={schedImg} alt="Tela do Scheduler" caption="Fig. 10 — Agendamento de tarefas" />
                 <FieldGrid
                   fields={[
-                    { k: "Nome", v: "Identificador do job" },
-                    { k: "Cron", v: "Expressão cron (ex: 0 */6 * * *)" },
+                    { k: "Nome", v: "Identificador da tarefa" },
+                    { k: "Periodicidade", v: "Intervalo de execução configurado" },
                     { k: "Status", v: "Sucesso / Falha / Pendente" },
-                    { k: "Ações", v: "Preview, Fix, Validation por link_id" },
+                    { k: "Próxima execução", v: "Data e hora da próxima rodada" },
                   ]}
                 />
               </>
@@ -37,26 +37,26 @@ export const Route = createFileRoute("/modulos/scheduler")({
           },
           {
             title: "Novo agendamento",
-            summary: "Modal para criar jobs com Nome, Expressão Cron, Tipo de tarefa e Parâmetros.",
+            summary: "Formulário para criar tarefas recorrentes informando nome, periodicidade e tipo.",
             body: (
               <StepList
                 items={[
                   { label: "Clique em Novo Agendamento." },
-                  { label: "Defina Nome e Expressão Cron." },
-                  { label: "Selecione o Tipo de tarefa (sync, import, validate)." },
-                  { label: "Configure parâmetros específicos e ative." },
+                  { label: "Defina um Nome descritivo para a tarefa." },
+                  { label: "Configure a periodicidade de execução." },
+                  { label: "Selecione o tipo de tarefa e os parâmetros necessários." },
+                  { label: "Ative o agendamento para iniciar as execuções." },
                 ]}
               />
             ),
           },
           {
-            title: "Preview e validação",
-            summary: "Sub-páginas para dry-run, correção e validação de links antes da execução real.",
+            title: "Acompanhamento",
+            summary: "Monitore o histórico de execuções, verifique falhas e consulte logs detalhados.",
             body: (
-              <Callout title="Ferramentas de diagnóstico">
-                <strong>/config/scheduler/preview/{'{link_id}'}</strong> — Dry-run do job.{" "}
-                <strong>/config/scheduler/fix/{'{link_id}'}</strong> — Correção de links.{" "}
-                <strong>/config/scheduler/validation/{'{link_id}'}</strong> — Validação de integridade.
+              <Callout title="Boas práticas">
+                Revise semanalmente as tarefas com falha. Verifique os logs de execução
+                para identificar a causa de erros antes de reprocessar.
               </Callout>
             ),
           },

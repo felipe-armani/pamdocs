@@ -16,51 +16,50 @@ export const Route = createFileRoute("/modulos/usuarios")({
       <Wizard
         module="03"
         title="Usuários"
-        intro="Gestão de usuários do sistema com perfis hierárquicos: Superadmin, Admin e Usuário. Acesso requer role admin em ao menos um domínio."
+        intro="Gestão de usuários do sistema com perfis hierárquicos: Superadmin, Admin e Usuário. O acesso a esta tela requer perfil de administrador."
         steps={[
           {
             title: "Listagem de usuários",
-            summary: "Tabela com todos os usuários: Nome, Email, Domínio, Perfil, Status. Apenas admin+ acessa.",
+            summary: "Tabela com todos os usuários: Nome, Email, Domínio, Perfil e Status.",
             body: (
               <Figure src={usersImg} alt="Listagem de usuários" caption="Fig. 03 — Tabela de usuários do PAM" />
             ),
           },
           {
             title: "Perfis de acesso",
-            summary: "Sistema de roles hierárquico controlado pelo PROFILE e pelo middleware de autenticação.",
+            summary: "O sistema possui três níveis de permissão com acessos progressivos.",
             body: (
               <FieldGrid
                 fields={[
-                  { k: "Superadmin", v: "Acesso total. Bypassa verificação de produto. ID=1 no banco." },
-                  { k: "Admin", v: "CRUD no seu domínio. Acessa /users, /config/*, /domains." },
-                  { k: "Usuário", v: "Apenas visualização. Sem acesso às telas de configuração." },
-                  { k: "Autenticação", v: "JWT HttpOnly cookie · validado via profile_jwt_secret_key" },
+                  { k: "Superadmin", v: "Acesso total ao sistema. Gerencia domínios e configurações globais." },
+                  { k: "Admin", v: "Gerencia usuários, projetos, grupos e configurações do seu domínio." },
+                  { k: "Usuário", v: "Acesso às telas principais: dashboard, grupos, pessoas e projetos." },
                 ]}
               />
             ),
           },
           {
             title: "Cadastro e edição",
-            summary: "Formulário modal para criar/editar usuários com nome, email, senha, domínio e papéis.",
+            summary: "Formulário para criar ou editar usuários com nome, email, domínio e perfil de acesso.",
             body: (
               <StepList
                 items={[
-                  { label: "Clique em Novo Usuário para abrir o modal." },
-                  { label: "Preencha Nome, Email e Senha." },
-                  { label: "Selecione o domínio e os papéis (roles) do usuário." },
-                  { label: "Para desativar, selecione o usuário e acione Desativar." },
+                  { label: "Clique em Novo Usuário para abrir o formulário." },
+                  { label: "Preencha Nome e Email corporativo." },
+                  { label: "Selecione o domínio e o perfil de acesso." },
+                  { label: "Para desativar um usuário, selecione-o e acione a opção Desativar." },
                 ]}
               />
             ),
           },
           {
             title: "Permissões por página",
-            summary: "Matriz de acesso: nem todas as páginas estão disponíveis para todos os perfis.",
+            summary: "Cada perfil tem acesso a um conjunto específico de funcionalidades.",
             body: (
-              <Callout title="Matriz de acesso">
-                <strong>Superadmin:</strong> Todas as páginas.{" "}
-                <strong>Admin:</strong> Dashboard, Grupos, Pessoas, Projetos, Usuários, Configurações.{" "}
-                <strong>Usuário:</strong> Apenas Dashboard, Grupos, Pessoas, Projetos.
+              <Callout title="Resumo de acessos">
+                <strong>Superadmin:</strong> Todas as funcionalidades.{" "}
+                <strong>Admin:</strong> Dashboard, Grupos, Pessoas, Projetos, Usuários e Configurações.{" "}
+                <strong>Usuário:</strong> Dashboard, Grupos, Pessoas e Projetos.
               </Callout>
             ),
           },

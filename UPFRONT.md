@@ -3,36 +3,33 @@
 > **Sistema:** PAM (Product Access Management) — Gestão de Acesso e Pessoas  
 > **Versão:** 1.0  
 > **Data:** 01/06/2026  
-> **URL Local:** `http://localhost:8005`  
-> **Autenticação:** SSO via PROFILE (`http://localhost:8006`)  
+> **Autenticação:** Single Sign-On corporativo  
 > **Rede Docker:** `minha-rede-compartilhada`
 
 ---
 
 ## 🏗️ Arquitetura de Containers
 
-| Container | Porta | Descrição |
-|-----------|-------|-----------|
-| `pam_web` | `8005:8000` | Aplicação principal FastAPI (Uvicorn) |
-| `pam_worker` | — | Celery worker para tarefas assíncronas |
-| `pam_mysql` | `3307:3306` | Banco MySQL 8.0 |
-| `pam_redis` | `6379` | Cache e filas Redis |
-| `pam-smtp4dev-1` | `5002:80` | Servidor SMTP de desenvolvimento |
-| `profile_web` | `8006:8000` | PROFILE — autenticação SSO |
-| `profile_api` | `8007:8001` | PROFILE API |
-| `profile_mariadb` | `3306` | Banco PROFILE MariaDB |
-| `profile_redis` | `6379` | Cache PROFILE Redis |
+| Container | Descrição |
+|-----------|-----------|
+| `web` | Aplicação principal (Uvicorn) |
+| `worker` | Processamento de tarefas assíncronas |
+| `mysql` | Banco de dados MySQL 8.0 |
+| `redis` | Cache e filas |
+| `smtp4dev` | Servidor SMTP de desenvolvimento |
+| `auth_web` | Sistema de autenticação SSO |
+| `auth_api` | API de autenticação |
+| `auth_db` | Banco de dados de autenticação |
+| `auth_redis` | Cache de autenticação |
 
 ### Inicialização
 
 ```bash
-# 1. Subir PROFILE primeiro (SSO)
-cd /home/felipe-armani/Documents/Projetos/profile
-make up
+# 1. Subir sistema de autenticação primeiro (SSO)
+cd profile && make up
 
-# 2. Subir PAM (depende do PROFILE)
-cd /home/felipe-armani/Documents/Projetos/pam
-make up
+# 2. Subir PAM
+cd pam && make up
 
 # 3. Verificar status
 docker compose ps
@@ -45,16 +42,16 @@ docker compose ps
 ```mermaid
 sequenceDiagram
     participant User
-    participant PAM (8005)
-    participant PROFILE (8006/8007)
+    participant PAM
+    participant Auth
     
-    User->>PAM (8005): Acessa / (login)
-    PAM (8005)->>PROFILE (8007): verify_product()
-    PROFILE (8007)-->>PAM (8005): Produto ativo ✅
-    User->>PAM (8005): Envia email + senha
-    PAM (8005)->>PROFILE (8007): POST /api/auth/login
-    PROFILE (8007)-->>PAM (8005): JWT tokens (HttpOnly cookies)
-    PAM (8005)-->>User: Redireciona → /dashboard
+    User->>PAM: Acessa tela de login
+    PAM->>Auth: Verifica produto ativo
+    Auth-->>PAM: Produto ativo ✅
+    User->>PAM: Envia e-mail + senha
+    PAM->>Auth: Valida credenciais
+    Auth-->>PAM: Confirma autenticação
+    PAM-->>User: Redireciona → Dashboard
 ```
 
 ---
@@ -125,12 +122,10 @@ Tela de login do PAM. Se o usuário já estiver autenticado (cookie JWT válido)
 - Logo DUEGETEC + nome do app (PAM System)
 
 **Fluxo:**
-1. Usuário acessa `/`
-2. Sistema verifica se produto está ativo no PROFILE (`DUE_PRODUCT_KEY`)
-3. Se produto inativo → mostra aviso
-4. Se produto ativo → mostra formulário de login
-5. Ao submeter → `POST /api/auth/login` → PROFILE valida → retorna JWT
-6. Redireciona para `/dashboard`
+1. Usuário acessa a tela de login
+2. Sistema verifica se produto está ativo no sistema de autenticação
+3. Se produto ativo → mostra formulário de login
+4. Se produto inativo → mostra aviso de bloqueio
 
 ---
 
