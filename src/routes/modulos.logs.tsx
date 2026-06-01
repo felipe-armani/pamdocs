@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { DocsLayout } from "@/components/docs-layout";
 import { Wizard } from "@/components/wizard";
-import { StepList, Callout, Figure } from "@/components/doc-blocks";
+import { StepList, Callout, FieldGrid, Figure } from "@/components/doc-blocks";
 import logsImg from "@/assets/11-logs.png";
 
 export const Route = createFileRoute("/modulos/logs")({
@@ -16,33 +16,46 @@ export const Route = createFileRoute("/modulos/logs")({
       <Wizard
         module="09"
         title="Logs de auditoria"
-        intro="Rastreamento completo de ações executadas no PAM, com filtros por ação, entidade e usuário."
+        intro="Rastreamento completo de ações no PAM. Cada evento registra timestamp, nível, módulo e mensagem. API: GET /api/logs."
         steps={[
           {
-            title: "Listagem",
-            summary: "Cada evento registra data, usuário, ação, entidade afetada, ID, IP e status.",
-            body: <Figure src={logsImg} alt="Logs de auditoria" caption="Fig. 11 — Logs de auditoria" />,
+            title: "Listagem de logs",
+            summary: "Tabela com Timestamp, Nível (INFO/WARNING/ERROR), Módulo e Mensagem.",
+            body: (
+              <>
+                <Figure src={logsImg} alt="Logs de auditoria" caption="Fig. 11 — Logs do sistema" />
+                <FieldGrid
+                  fields={[
+                    { k: "Timestamp", v: "Data/hora do evento" },
+                    { k: "Nível", v: "INFO · WARNING · ERROR" },
+                    { k: "Módulo", v: "Componente de origem (auth, api, worker)" },
+                    { k: "Mensagem", v: "Descrição textual do evento" },
+                  ]}
+                />
+              </>
+            ),
           },
           {
-            title: "Filtros",
-            summary: "Combine busca textual com filtros de ação e tipo de entidade para investigar incidentes.",
+            title: "Filtros e busca",
+            summary: "Combine busca textual com filtros por nível, data e módulo para investigar incidentes.",
             body: (
               <StepList
                 items={[
-                  { label: "Digite termos no campo Buscar (ação, tipo ou usuário)." },
-                  { label: "Refine por Ação e Tipo de Entidade." },
-                  { label: "Ajuste o tamanho de página conforme o volume." },
+                  { label: "Digite termos no campo de busca textual." },
+                  { label: "Filtre por Nível: INFO, WARNING ou ERROR." },
+                  { label: "Filtre por período (data inicial e final)." },
+                  { label: "Use paginação para navegar em grandes volumes." },
                 ]}
               />
             ),
           },
           {
-            title: "Retenção",
-            summary: "Logs são preservados conforme a política de auditoria vigente.",
+            title: "Boas práticas",
+            summary: "Logs são essenciais para auditoria e debugging. Consulte antes de abrir chamados.",
             body: (
-              <Callout title="Política">
-                Exportações de logs devem ser justificadas e armazenadas no repositório
-                seguro de evidências. Nunca compartilhe IPs ou IDs em canais públicos.
+              <Callout title="Política de retenção">
+                Logs são armazenados conforme política de retenção configurada. Para
+                investigações, sempre anote o timestamp e o session_id antes de acionar o suporte.
               </Callout>
             ),
           },

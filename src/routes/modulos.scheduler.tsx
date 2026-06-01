@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { DocsLayout } from "@/components/docs-layout";
 import { Wizard } from "@/components/wizard";
-import { StepList, Callout, Figure } from "@/components/doc-blocks";
+import { StepList, FieldGrid, Callout, Figure } from "@/components/doc-blocks";
 import schedImg from "@/assets/10-scheduler.png";
 
 export const Route = createFileRoute("/modulos/scheduler")({
   head: () => ({
     meta: [
       { title: "Scheduler — Manual PAM" },
-      { name: "description", content: "Vínculos agendados entre grupos de pessoas e grupos de projetos." },
+      { name: "description", content: "Agendamento de tarefas recorrentes de sincronização e importação no PAM." },
     ],
   }),
   component: () => (
@@ -16,33 +16,47 @@ export const Route = createFileRoute("/modulos/scheduler")({
       <Wizard
         module="08"
         title="Scheduler"
-        intro="Configuração de vínculos agendados que sincronizam grupos de pessoas com grupos de projetos em janelas pré-definidas."
+        intro="Configuração de tarefas agendadas (jobs recorrentes) para sincronização, importação e validação de dados. Acesso restrito a admin+."
         steps={[
           {
             title: "Visão geral",
-            summary: "A tela Scheduler centraliza todos os vínculos automatizados entre grupos de pessoas e grupos de projetos.",
-            body: <Figure src={schedImg} alt="Tela do Scheduler" caption="Fig. 10 — Scheduler" />,
+            summary: "Tabela de agendamentos com Nome, Expressão Cron, Status, Última/Próxima execução. API: GET/POST /api/scheduler.",
+            body: (
+              <>
+                <Figure src={schedImg} alt="Tela do Scheduler" caption="Fig. 10 — Scheduler de tarefas" />
+                <FieldGrid
+                  fields={[
+                    { k: "Nome", v: "Identificador do job" },
+                    { k: "Cron", v: "Expressão cron (ex: 0 */6 * * *)" },
+                    { k: "Status", v: "Sucesso / Falha / Pendente" },
+                    { k: "Ações", v: "Preview, Fix, Validation por link_id" },
+                  ]}
+                />
+              </>
+            ),
           },
           {
-            title: "Novo vínculo",
-            summary: "Crie um novo agendamento informando origem, grupo de projetos e janela de repetição.",
+            title: "Novo agendamento",
+            summary: "Modal para criar jobs com Nome, Expressão Cron, Tipo de tarefa e Parâmetros.",
             body: (
               <StepList
                 items={[
-                  { label: "Clique em Novo Vínculo." },
-                  { label: "Selecione tipo, origem e grupo de projetos." },
-                  { label: "Defina a repetição e ative o vínculo." },
+                  { label: "Clique em Novo Agendamento." },
+                  { label: "Defina Nome e Expressão Cron." },
+                  { label: "Selecione o Tipo de tarefa (sync, import, validate)." },
+                  { label: "Configure parâmetros específicos e ative." },
                 ]}
               />
             ),
           },
           {
-            title: "Monitoramento",
-            summary: "Acompanhe status e próxima execução diretamente na listagem.",
+            title: "Preview e validação",
+            summary: "Sub-páginas para dry-run, correção e validação de links antes da execução real.",
             body: (
-              <Callout title="Boa prática">
-                Revise vínculos com falha semanalmente e mantenha o filtro Todos os status
-                como padrão para visibilidade completa.
+              <Callout title="Ferramentas de diagnóstico">
+                <strong>/config/scheduler/preview/{'{link_id}'}</strong> — Dry-run do job.{" "}
+                <strong>/config/scheduler/fix/{'{link_id}'}</strong> — Correção de links.{" "}
+                <strong>/config/scheduler/validation/{'{link_id}'}</strong> — Validação de integridade.
               </Callout>
             ),
           },

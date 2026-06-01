@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { DocsLayout } from "@/components/docs-layout";
 import { Wizard } from "@/components/wizard";
-import { Callout, Figure } from "@/components/doc-blocks";
+import { Callout, Figure, FieldGrid } from "@/components/doc-blocks";
 import domImg from "@/assets/07-dominios.png";
 import hubsImg from "@/assets/08-hubs.png";
 
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/modulos/dominios")({
   head: () => ({
     meta: [
       { title: "Domínios & hubs — Manual PAM" },
-      { name: "description", content: "Configuração de domínios confiáveis e hubs ACC vinculados ao PAM." },
+      { name: "description", content: "Domínios sincronizados via PROFILE e hubs do PAM." },
     ],
   }),
   component: () => (
@@ -17,25 +17,37 @@ export const Route = createFileRoute("/modulos/dominios")({
       <Wizard
         module="06"
         title="Domínios & hubs"
-        intro="Configuração de domínios autorizados e vinculação dos hubs do Autodesk Construction Cloud ao PAM."
+        intro="Domínios são tenants/organizações sincronizadas a partir do PROFILE. Hubs são centros de distribuição. Acesso restrito a superadmin/admin."
         steps={[
           {
-            title: "Domínios confiáveis",
-            summary: "Apenas usuários de domínios autorizados podem ser provisionados no PAM.",
-            body: <Figure src={domImg} alt="Listagem de domínios" caption="Fig. 07 — Domínios confiáveis" />,
+            title: "Domínios",
+            summary: "Gerenciamento de domínios — apenas superadmin. Sincronizados do PROFILE via POST /api/domains/sync-from-profile.",
+            body: (
+              <>
+                <Figure src={domImg} alt="Listagem de domínios" caption="Fig. 07 — Domínios (apenas superadmin)" />
+                <FieldGrid
+                  fields={[
+                    { k: "Acesso", v: "Apenas superadmin" },
+                    { k: "Origem", v: "Sincronizados do PROFILE" },
+                    { k: "API", v: "GET /api/domains · POST /sync-from-profile" },
+                    { k: "Multi-domínio", v: "Usuário pode pertencer a múltiplos domínios" },
+                  ]}
+                />
+              </>
+            ),
           },
           {
-            title: "Hubs ACC",
-            summary: "Cada hub é vinculado ao PAM para sincronização de projetos e papéis.",
-            body: <Figure src={hubsImg} alt="Listagem de hubs" caption="Fig. 08 — Hubs ACC" />,
+            title: "Hubs",
+            summary: "Hubs são pontos centrais de distribuição/organização. API: GET/POST /api/hubs.",
+            body: <Figure src={hubsImg} alt="Listagem de hubs" caption="Fig. 08 — Hubs" />,
           },
           {
             title: "Governança",
-            summary: "Sempre use o hub de produção. Hubs sandbox são apenas para testes aprovados.",
+            summary: "Domínios são a base do isolamento multi-tenant. Hubs organizam a distribuição interna.",
             body: (
               <Callout title="Política">
-                Hubs sandbox não podem armazenar dados produtivos. Solicite revisão antes de
-                vincular um novo hub.
+                Apenas superadmin pode gerenciar domínios. Admins de domínio gerenciam hubs
+                dentro do seu próprio domínio. Usuários não têm acesso a estas telas.
               </Callout>
             ),
           },

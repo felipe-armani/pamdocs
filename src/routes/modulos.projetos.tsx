@@ -8,7 +8,7 @@ export const Route = createFileRoute("/modulos/projetos")({
   head: () => ({
     meta: [
       { title: "Projetos — Manual PAM" },
-      { name: "description", content: "Criação, parametrização e governança de projetos ACC pelo PAM." },
+      { name: "description", content: "Gestão de projetos e funções ACC Industry Roles no PAM." },
     ],
   }),
   component: () => (
@@ -16,33 +16,34 @@ export const Route = createFileRoute("/modulos/projetos")({
       <Wizard
         module="04"
         title="Projetos"
-        intro="Estrutura padronizada de criação, parametrização e governança dos projetos no ACC via PAM."
+        intro="Gestão de projetos e funções de projeto (ACC Industry Roles). Projetos representam contextos onde pessoas e grupos atuam."
         steps={[
           {
             title: "Listagem de projetos",
-            summary: "Apresenta todos os projetos sincronizados ao hub e sua matriz de acessos.",
+            summary: "Tabela com todos os projetos: Nome, Descrição, Status. API: GET /api/projects.",
             body: <Figure src={projImg} alt="Listagem de projetos" caption="Fig. 04 — Tabela de projetos" />,
           },
           {
-            title: "Criação",
-            summary: "Cada projeto novo segue o template oficial da engenharia digital.",
+            title: "Criação e edição",
+            summary: "Modal para criar/editar projetos com Nome, Descrição e Status.",
             body: (
               <StepList
                 items={[
-                  { label: "Acione Novo projeto." },
-                  { label: "Selecione o template Engenharia Digital · Padrão." },
-                  { label: "Defina responsável, prazo e grupos iniciais." },
+                  { label: "Clique em Novo Projeto." },
+                  { label: "Preencha Nome, Descrição e Status." },
+                  { label: "Use PUT /api/projects/{id} para editar." },
+                  { label: "DELETE /api/projects/{id} para remover." },
                 ]}
               />
             ),
           },
           {
-            title: "Governança",
-            summary: "Use a aba de governança para revisar acessos e exportar evidências.",
+            title: "Funções de Projeto",
+            summary: "ACC Industry Roles: papéis que pessoas podem ter em projetos. Acessível em /projects/roles.",
             body: (
-              <Callout title="Atenção">
-                Toda alteração em projetos é registrada para auditoria. Justifique mudanças
-                fora do padrão no campo observações.
+              <Callout title="Product Roles">
+                As funções são gerenciadas via <code>GET/POST /api/product_roles</code>.
+                Exemplos: BIM Manager, Engenheiro, Coordenador, Supervisor.
               </Callout>
             ),
           },
