@@ -20,6 +20,16 @@ dist-ssr
 .wrangler/
 .dev.vars
 
+# Passo a Passo — ferramenta de documentação automatizada
+tools/passoapasso/output/
+tools/passoapasso/backup_sidebar/
+tools/passoapasso/__pycache__/
+tools/passoapasso/**/__pycache__/
+tools/passoapasso/*.pyc
+tools/passoapasso/**/*.pyc
+tools/passoapasso/.venv/
+tools/passoapasso/node_modules/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
