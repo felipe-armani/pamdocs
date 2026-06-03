@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual Operacional · PAM — Duegetec</title>
+    <meta name="description" content="Documentação técnica para usuários finais da operação PAM integrada ao Autodesk Construction Cloud." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/assets/styles-DcxUw05t.css">
+    <script type="module" src="/assets/index-812ofn4x.js"></script>
+    <style>
+      /* Prevent FOUC — hide content until JS loads */
+      body > div:first-of-type { opacity: 0; transition: opacity 0.15s; }
+      body.hydrated > div:first-of-type { opacity: 1; }
+    </style>
+    <script>
+      // SPA routing: redirect 404.html → index.html with path preserved
+      (function() {
+        if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+          const redirect = sessionStorage.redirect;
+          delete sessionStorage.redirect;
+          if (redirect && redirect !== window.location.href) {
+            history.replaceState(null, null, redirect);
+          }
+        }
+        // Mark hydrated once React takes over
+        document.addEventListener('DOMContentLoaded', function() {
+          document.body.classList.add('hydrated');
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
