@@ -11,10 +11,13 @@
  */
 import { readdir, copyFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { resolve, basename } from "node:path";
+import { resolve, basename, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const DIST_CLIENT = resolve(import.meta.dirname, "../dist/client");
-const DIST_STATIC = resolve(import.meta.dirname, "../dist/prerendered");
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const DIST_CLIENT = resolve(__dirname, "../dist/client");
+const DIST_STATIC = resolve(__dirname, "../dist/prerendered");
 
 async function findEntryScript(dir) {
   const entries = await readdir(dir, { withFileTypes: true });

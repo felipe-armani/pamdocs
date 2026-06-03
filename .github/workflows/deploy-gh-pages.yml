@@ -42,15 +42,10 @@ jobs:
       - name: Copy static assets
         run: |
           mkdir -p _site
-          cp -r dist/static/* _site/ 2>/dev/null || true
-          cp -r dist/client/* _site/ 2>/dev/null || true
-          # Copy pre-rendered HTML pages (overwrites any conflicting files)
-          cp -r dist/prerendered/* _site/ 2>/dev/null || true
-          # 404.html = index.html for SPA routing on GitHub Pages
-          if [ -f _site/index.html ]; then
-            cp _site/index.html _site/404.html
-          fi
-          # Ensure no .nojekyll so GitHub Pages doesn't ignore _ prefixed files
+          cp -r dist/client/* _site/
+          # Copy pre-rendered HTML pages
+          cp -r dist/prerendered/* _site/
+          # .nojekyll ensures GitHub Pages doesn't ignore underscore-prefixed files
           touch _site/.nojekyll
 
       - name: Setup Pages
