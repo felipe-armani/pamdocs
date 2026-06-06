@@ -17,6 +17,13 @@ const MODULES = [
   { code: "10", id: "status", to: "/modulos/status", label: "Status do sistema" },
 ];
 
+// ── Base Path (detect GitHub Pages) ───────────────────────
+let basePath = '';
+(function() {
+  const p = window.location.pathname;
+  if (p.includes('/pamdocs/')) basePath = '/pamdocs';
+})();
+
 // ── Module Content ─────────────────────────────────────────
 // Each module: { title, intro, steps: [{ title, summary, html }] }
 // html is a string of inner HTML for the step content (after summary)
@@ -307,13 +314,6 @@ function callout(title, text) {
 // ── State ───────────────────────────────────────────────────
 let currentModule = null;   // module id or 'home'
 let currentStep = 0;        // step index (0-based)
-let basePath = '';
-
-// Detect base path for GitHub Pages
-(function() {
-  const p = window.location.pathname;
-  if (p.includes('/pamdocs/')) basePath = '/pamdocs';
-})();
 
 // ── Router ──────────────────────────────────────────────────
 function navigate(path) {
