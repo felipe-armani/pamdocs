@@ -17,5 +17,3 @@ export default defineConfig({
     base: process.env.CI ? "./" : "/",
   },
 });
-  cloudflare: process.env.CI ? false : undefined,
-});
