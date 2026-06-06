@@ -281,8 +281,8 @@ status: {
 // ── Helper: HTML generators ────────────────────────────────
 function figure(src, alt, caption) {
   return `
-    <div class="figure" data-zoom="assets/${src}">
-      <img src="assets/${src}" alt="${alt}" loading="lazy">
+    <div class="figure" data-zoom="${basePath}/assets/${src}">
+      <img src="${basePath}/assets/${src}" alt="${alt}" loading="lazy">
       <span class="fig-badge">🔍 Ampliar</span>
       ${caption ? `<div class="fig-caption">${caption}</div>` : ''}
     </div>`;
