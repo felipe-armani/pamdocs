@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Operacional · PAM — Duegetec</title>
+<link rel="icon" type="image/svg+xml" href="assets/duegetec-icon.svg">
+<link rel="stylesheet" href="styles.css">
+<script>
+  // GitHub Pages SPA redirect: store path & redirect to root
+  (function(){
+    var path = window.location.pathname;
+    var base = '/pamdocs';
+    if (path.indexOf(base) === 0) path = path.slice(base.length) || '/';
+    if (path !== '/404.html' && path !== '/') {
+      sessionStorage.setItem('__pam_redirect', path);
+      window.location.replace(base + '/');
+    }
+  })();
+</script>
+</head>
+<body>
+<div id="root"></div>
+<script src="script.js"></script>
+</body>
+</html>
