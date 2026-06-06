@@ -363,7 +363,7 @@ function renderHome(main) {
       <p>${CONTENT.home.intro}</p>
       <div class="hero-actions">
         <a href="${basePath}/modulos/acesso" class="btn" data-nav="/modulos/acesso">Iniciar pelo módulo 01 →</a>
-        <span class="badge">7 módulos · etapas guiadas</span>
+        <span class="badge">${mods.length} módulos · etapas guiadas</span>
       </div>
     </section>
 

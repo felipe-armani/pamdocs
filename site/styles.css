@@ -72,12 +72,14 @@ button { cursor: pointer; font: inherit; }
 .logo-text { line-height: 1.2; display: none; }
 .logo-eyebrow { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted-fg); display: block; }
 .logo-title { font-size: 0.8rem; font-weight: 500; }
-.header-actions { display: none; align-items: center; gap: 0.75rem; font-size: 0.7rem; color: var(--muted-fg); text-transform: uppercase; letter-spacing: 0.5px; }
+.header-actions { display: flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; color: var(--muted-fg); text-transform: uppercase; letter-spacing: 0.5px; flex-wrap: wrap; }
+.header-actions .version, .header-actions .acc, .sep { display: none; }
 .sep { width: 1px; height: 16px; background: var(--border); }
-.theme-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.3rem 0.5rem; font-size: 1rem; line-height: 1; }
-.menu-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.4rem 0.7rem; font-size: 1.2rem; display: block; }
+.theme-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.3rem 0.5rem; font-size: 1rem; line-height: 1; flex-shrink: 0; }
+.menu-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.4rem 0.7rem; font-size: 1.2rem; display: block; flex-shrink: 0; }
 @media (min-width: 768px) {
-  .logo-divider, .logo-text, .header-actions { display: flex; }
+  .logo-divider, .logo-text { display: flex; }
+  .header-actions .version, .header-actions .acc, .sep { display: block; }
   .menu-btn { display: none; }
 }
 
@@ -141,7 +143,7 @@ button { cursor: pointer; font: inherit; }
   padding: 0.7rem 1.4rem; font-size: 0.75rem; text-transform: uppercase;
   letter-spacing: 1px; font-weight: 600;
 }
-.hero .badge { font-size: 0.7rem; color: var(--muted-fg); text-transform: uppercase; letter-spacing: 0.5px; }
+.hero .badge { font-size: 0.7rem; color: var(--muted-fg); text-transform: uppercase; letter-spacing: 0.5px; margin-left: 0.25rem; }
 .doc-ref { position: absolute; right: 1.5rem; top: 1.5rem; font-family: monospace; font-size: 0.6rem; color: var(--muted-fg); }
 
 /* Modules grid (home) */
@@ -292,9 +294,13 @@ footer {
 #overlay { display: none; position: fixed; inset: 0; z-index: 45; background: rgba(0,0,0,0.4); }
 #overlay.open { display: block; }
 
+/* ---- Utility ---- */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
 /* ---- Responsive ---- */
 @media (max-width: 1023px) {
   .header-inner { padding: 0.75rem 1rem; }
   .layout { padding: 1rem; }
   .hero { padding: 2rem 1.25rem; }
+  .hero h1 { font-size: 1.8rem; }
 }
