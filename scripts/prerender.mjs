@@ -63,9 +63,9 @@ async function main() {
   const cssFiles = await findCSSFiles(assetsDir);
   console.log(`🎨 CSS files: ${cssFiles.length} found`);
 
-  // Build HTML with discovered assets
+  // Build HTML with discovered assets (relative paths for GitHub Pages subpath)
   const cssLinks = cssFiles
-    .map((f) => `    <link rel="stylesheet" href="/assets/${f}">`)
+    .map((f) => `    <link rel="stylesheet" href="./assets/${f}">`)
     .join("\n");
 
   const html = `<!DOCTYPE html>
@@ -75,9 +75,9 @@ async function main() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manual Operacional · PAM — Duegetec</title>
     <meta name="description" content="Documentação técnica para usuários finais da operação PAM integrada ao Autodesk Construction Cloud." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
 ${cssLinks}
-    <script type="module" src="/assets/${entryScript}"></script>
+    <script type="module" src="./assets/${entryScript}"></script>
     <style>
       /* Prevent FOUC — hide content until JS loads */
       body > div:first-of-type { opacity: 0; transition: opacity 0.15s; }
@@ -122,9 +122,9 @@ ${cssLinks}
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manual Operacional · PAM — Duegetec</title>
     <meta name="description" content="Documentação técnica para usuários finais da operação PAM integrada ao Autodesk Construction Cloud." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
 ${cssLinks}
-    <script type="module" src="/assets/${entryScript}"></script>
+    <script type="module" src="./assets/${entryScript}"></script>
     <style>
       body > div:first-of-type { opacity: 0; transition: opacity 0.15s; }
       body.hydrated > div:first-of-type { opacity: 1; }
@@ -134,9 +134,9 @@ ${cssLinks}
       // Store the intended path and redirect to root
       (function() {
         var path = window.location.pathname;
-        if (path !== '/404.html') {
+        if (path !== '/pamdocs/404.html') {
           sessionStorage.redirect = path;
-          window.location.replace('/');
+          window.location.replace('/pamdocs/');
         }
       })();
     </script>
