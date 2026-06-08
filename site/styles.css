@@ -213,6 +213,7 @@ button { cursor: pointer; font: inherit; }
   box-shadow: 0 1px 3px color-mix(in oklch, var(--fg) 8%, transparent),
               0 4px 12px color-mix(in oklch, var(--fg) 5%, transparent);
   margin-bottom: 1.5rem; position: relative; overflow: hidden;
+  max-width: 800px;
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .figure:hover {
