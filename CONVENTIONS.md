@@ -18,7 +18,7 @@ projeto/
 │   ├── script.js               # Router SPA + dados dos módulos + helpers
 │   ├── assets/
 │   │   ├── duegetec-logo.svg   # Logo oficial Duegetec (NÃO criar versão customizada)
-│   │   ├── 01-login.png        # Screenshots: 00-nome.png
+│   │   ├── 01-login.png        # Screenshots: XX-nome.png (XX = número do módulo)
 │   │   ├── 02-dashboard.png
 │   │   └── ...
 │   └── fonts/
@@ -62,6 +62,7 @@ projeto/
 **Regras:**
 - `id="header"`, `id="sidebar"`, `id="main"`, `id="nav"` — NUNCA renomear
 - `id="projectSwitcher"`, `id="versionSwitcher"`, `id="themeToggle"`, `id="menuBtn"` — NUNCA renomear
+- `id="logoImg"` — NUNCA renomear (CSS usa `.dark .logo-img` para inverter cores)
 - `data-nav="home"` no logo é obrigatório para o router SPA
 - O `<select>` de projeto e versão são preenchidos dinamicamente via JS
 
@@ -95,6 +96,38 @@ projeto/
 ```
 
 IDs do lightbox são imutáveis — o JS referencia `lightbox`, `lightboxImg`, `lightboxCaption`.
+
+### 2.4 Overlay mobile (criado dinamicamente)
+
+O elemento `#overlay` é **criado via JavaScript** no `script.js` (seção Mobile Menu). NUNCA adicioná-lo manualmente no HTML.
+
+### 2.5 404.html — Fallback SPA
+
+```html
+<script>
+  if (window.location.hostname.includes('github.io')) {
+    sessionStorage.setItem('__PROJETO_redirect', window.location.pathname);
+    window.location.replace(window.location.pathname.replace(/\/[^/]*$/, '/'));
+  }
+</script>
+```
+
+A chave do `sessionStorage` deve seguir o padrão `__PROJETO_redirect`:
+- ProfileDocs: `__profile_redirect`
+- PAMdocs: `__pam_redirect`
+
+O JS principal lê essa chave no Init para restaurar a rota após o redirect.
+
+### 2.6 Favicon
+
+O favicon é um SVG inline (data URI). A letra dentro do retângulo deve ser a **inicial do produto**:
+
+```html
+<!-- Profile → "P" -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%234f46e5'/><text x='16' y='22' text-anchor='middle' font-size='18' font-weight='bold' fill='white'>P</text></svg>">
+
+<!-- PAM → "P" (mesma inicial, mesma cor) -->
+```
 
 ---
 
@@ -252,10 +285,44 @@ callout("Título", "Texto com <strong>HTML</strong> e <code>código</code>")
 | Regra | Motivo |
 |-------|--------|
 | **NUNCA usar frameworks JS** (React, Vue, jQuery, etc.) | A SPA é vanilla JS por design |
-| **NUNCA alterar IDs referenciados no JS** | `main`, `nav`, `sidebar`, `lightbox`, `themeToggle`, `menuBtn`, `overlay`, `projectSwitcher`, `versionSwitcher` |
+| **NUNCA alterar IDs referenciados no JS** | `main`, `nav`, `sidebar`, `logoImg`, `lightbox`, `lightboxImg`, `lightboxCaption`, `themeToggle`, `menuBtn`, `overlay`, `projectSwitcher`, `versionSwitcher` |
 | **NUNCA alterar data-nav** | O router SPA depende disso |
 | **SEMPRE usar helpers** | `figure()`, `stepList()`, `fieldGrid()`, `callout()` — NUNCA escrever HTML inline |
-| **SEMPRE testar em GitHub Pages** | O `basePath` só funciona corretamente no domínio `github.io` |
+| **SEMPRE testar em GitHub Pages** | O `basePath` só é ativado no domínio `github.io`; em `file://` o router força rota `/` |
+
+### 4.5 Comportamentos especiais
+
+**`figure()` — fallback automático para imagens ausentes:**
+
+```js
+function figure(src, alt, caption) {
+  return `
+    <div class="figure" data-zoom="${basePath}/assets/${src}">
+      <img src="${basePath}/assets/${src}" alt="${alt}" loading="lazy"
+           onerror="this.parentElement.style.display='none'">
+      ...
+    </div>`;
+}
+```
+
+O `onerror` esconde automaticamente figuras cujo screenshot ainda não foi adicionado. Isso permite publicar a documentação antes de ter todas as imagens prontas.
+
+**`getRouteFromPath()` — compatibilidade com `file://`:**
+
+```js
+function getRouteFromPath() {
+  let p = window.location.pathname;
+  if (window.location.protocol === 'file:') return '/';  // força home em modo local
+  if (basePath) p = p.replace(basePath, '') || '/';
+  return p;
+}
+```
+
+Isso garante que a documentação funcione tanto aberta direto do sistema de arquivos quanto publicada no GitHub Pages.
+
+**`#overlay` — criado dinamicamente:**
+
+O elemento `#overlay` (fundo escuro do menu mobile) é criado via `document.createElement` no JS. NUNCA adicioná-lo no HTML.
 
 ---
 
@@ -301,12 +368,14 @@ const PROJECTS = [
   { id: "pam",       name: "PAM",       url: "https://felipe-armani.github.io/pamdocs/" },
   { id: "inventory", name: "Inventory", url: "https://duegetec.github.io/inventorydocs/" }, // NOVO
 ];
+const CURRENT_PROJECT = "profile"; // ⚠️ DEVE ser o id do projeto ATUAL
 ```
 
 - `id` — slug único do projeto (usado como `value` do `<option>`)
 - `name` — nome de exibição
 - `url` — URL completa da documentação publicada
-- `CURRENT_PROJECT` — ajustar para o `id` do projeto atual
+- **`CURRENT_PROJECT`** — **OBRIGATÓRIO ajustar para o `id` do projeto atual.** É o que define qual opção aparece selecionada no dropdown. Ex: no PAMdocs é `"pam"`, no ProfileDocs é `"profile"`.
+- **A lista `PROJECTS[]` deve ser IDÊNTICA em todos os projetos** — apenas o `CURRENT_PROJECT` muda.
 
 ### 6.2 Adicionar nova versão
 
