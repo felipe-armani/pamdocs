@@ -17,11 +17,49 @@ const MODULES = [
   { code: "10", id: "status", to: "/modulos/status", label: "Status do sistema" },
 ];
 
-// ── Base Path (detect GitHub Pages) ───────────────────────
+// ── Project Switcher ──────────────────────────────────────
+const PROJECTS = [
+  { id: "profile", name: "Profile", url: "https://duegetec.github.io/profiledocs/" },
+  { id: "pam",     name: "PAM",     url: "https://felipe-armani.github.io/pamdocs/" },
+];
+const CURRENT_PROJECT = "pam";
+
+function buildProjectSwitcher() {
+  const sel = document.getElementById('projectSwitcher');
+  if (!sel) return;
+  sel.innerHTML = PROJECTS.map(p =>
+    `<option value="${p.id}"${p.id === CURRENT_PROJECT ? ' selected' : ''}>${p.name}</option>`
+  ).join('');
+  sel.addEventListener('change', () => {
+    const p = PROJECTS.find(x => x.id === sel.value);
+    if (p) window.location.href = p.url;
+  });
+}
+
+// ── Version Switcher ──────────────────────────────────────
+const VERSIONS = [
+  { label: "v3.0", url: "https://felipe-armani.github.io/pamdocs/" },
+];
+const CURRENT_VERSION = "v3.0";
+
+function buildVersionSwitcher() {
+  const sel = document.getElementById('versionSwitcher');
+  if (!sel) return;
+  sel.innerHTML = VERSIONS.map(v =>
+    `<option value="${v.label}"${v.label === CURRENT_VERSION ? ' selected' : ''}>${v.label}</option>`
+  ).join('');
+  sel.addEventListener('change', () => {
+    const v = VERSIONS.find(x => x.label === sel.value);
+    if (v) window.location.href = v.url;
+  });
+}
+
+// ── Base Path (detect GitHub Pages only) ─────────────────
 let basePath = '';
 (function() {
   const p = window.location.pathname;
-  if (p.includes('/pamdocs/')) basePath = '/pamdocs';
+  // Only set basePath on GitHub Pages domain
+  if (window.location.hostname.includes('github.io') && p.includes('/pamdocs/')) basePath = '/pamdocs';
 })();
 
 // ── Module Content ─────────────────────────────────────────
@@ -576,6 +614,8 @@ overlay.addEventListener('click', () => {
 
 // ── Init ────────────────────────────────────────────────────
 buildNav();
+buildProjectSwitcher();
+buildVersionSwitcher();
 
 // Check for redirect from 404.html (GitHub Pages SPA fallback)
 const redirect = sessionStorage.getItem('__pam_redirect');

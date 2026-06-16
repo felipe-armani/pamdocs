@@ -74,6 +74,14 @@ button { cursor: pointer; font: inherit; }
 .logo-title { font-size: 0.8rem; font-weight: 500; }
 .header-actions { display: flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; color: var(--muted-fg); text-transform: uppercase; letter-spacing: 0.5px; flex-wrap: wrap; }
 .header-actions .version, .header-actions .acc, .sep { display: none; }
+.header-selectors { display: flex; gap: 0.35rem; }
+.header-select {
+  font-family: var(--font); font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.5px; padding: 0.3rem 0.5rem; border: 1px solid var(--border);
+  border-radius: var(--radius); background: var(--card); color: var(--fg);
+  cursor: pointer; outline: none; max-width: 140px;
+}
+.header-select:focus { border-color: var(--violet); }
 .sep { width: 1px; height: 16px; background: var(--border); }
 .theme-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.3rem 0.5rem; font-size: 1rem; line-height: 1; flex-shrink: 0; }
 .menu-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.4rem 0.7rem; font-size: 1.2rem; display: block; flex-shrink: 0; }
