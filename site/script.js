@@ -19,6 +19,7 @@ const MODULES = [
 
 // ── Project Switcher ──────────────────────────────────────
 const PROJECTS = [
+  { id: "duecode", name: "DueCode", url: "https://felipe-armani.github.io/duecodedocs/" },
   { id: "profile", name: "Profile", url: "https://duegetec.github.io/profiledocs/" },
   { id: "pam",     name: "PAM",     url: "https://felipe-armani.github.io/pamdocs/" },
 ];
