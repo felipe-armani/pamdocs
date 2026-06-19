@@ -133,6 +133,45 @@ button { cursor: pointer; font: inherit; }
 }
 .sidebar-support p { font-size: 0.7rem; color: var(--muted-fg); margin-top: 0.35rem; line-height: 1.4; }
 
+/* ---- Pattern Background ---- */
+.pattern-bg { isolation: isolate; position: relative; }
+.pattern-bg::before {
+  content: "";
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: -1;
+  background-image: url("assets/pattern-lines-light.svg");
+  background-position: 50% center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  inset: 0;
+}
+.dark .pattern-bg::before {
+  opacity: 0.45;
+  background-image: url("assets/pattern-lines.svg");
+}
+
+/* ---- App Shell (subtle full-page pattern) ---- */
+.app-shell { isolation: isolate; position: relative; }
+.app-shell::before {
+  content: "";
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("assets/pattern-lines-light.svg");
+  background-position: 100% 0px;
+  background-repeat: no-repeat;
+  background-size: 1400px;
+  position: fixed;
+  inset: 0;
+}
+.dark .app-shell::before {
+  opacity: 0.35;
+  background-image: url("assets/pattern-lines.svg");
+}
+.app-shell > * { position: relative; z-index: 1; }
+
 /* ---- Main Content ---- */
 #main { min-height: 60vh; }
 
@@ -140,6 +179,23 @@ button { cursor: pointer; font: inherit; }
 .hero {
   border: 1px solid var(--border); background: var(--card);
   padding: 3rem 2rem; position: relative; overflow: hidden; margin-bottom: 2.5rem;
+  isolation: isolate;
+}
+.hero::before {
+  content: "";
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: -1;
+  background-image: url("assets/pattern-lines-light.svg");
+  background-position: 50% center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  inset: 0;
+}
+.dark .hero::before {
+  opacity: 0.45;
+  background-image: url("assets/pattern-lines.svg");
 }
 .hero-eyebrow { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--violet); margin-bottom: 1rem; }
 .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.5px; }
