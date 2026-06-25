@@ -19,9 +19,10 @@ const MODULES = [
 
 // ── Project Switcher ──────────────────────────────────────
 const PROJECTS = [
-  { id: "duecode", name: "DueCode", url: "https://felipe-armani.github.io/duecodedocs/" },
-  { id: "profile", name: "Profile", url: "https://duegetec.github.io/profiledocs/" },
-  { id: "pam",     name: "PAM",     url: "https://felipe-armani.github.io/pamdocs/" },
+  { id: "duecode",   name: "DueCode",   url: "https://felipe-armani.github.io/duecodedocs/" },
+  { id: "profile",   name: "Profile",   url: "https://duegetec.github.io/profiledocs/" },
+  { id: "pam",       name: "PAM",       url: "https://felipe-armani.github.io/pamdocs/" },
+  { id: "inventory", name: "Inventory", url: "https://duegetec.github.io/inventorydocs/" },
 ];
 const CURRENT_PROJECT = "pam";
 
